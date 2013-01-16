@@ -42,3 +42,8 @@ redis-cli -n 9 keys '*' | xargs -n 1 redis-cli -n 9 del
 
 
 cat x | tr '\n' '\000' | xargs -0
+
+paste命令管道输入
+paste命令还有一个很有用的选项（-）。意即对每一个（-），从标准输入中读一次数据。使用空格作域分隔符，以一个4列格式显示目录列表。方法如下：
+ls | paste –d” ” - - - -
+也可以以一列格式显示输出
