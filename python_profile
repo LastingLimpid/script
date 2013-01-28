@@ -1,0 +1,2 @@
+#profile python script xxx.py, the result is sorted by total time used
+ python -m profile -s time xxx.py
