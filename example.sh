@@ -50,3 +50,6 @@ ls | paste –d” ” - - - -
 
 -s 把文件中的所有行并到一行输出
 paste -s file
+
+#command to show process
+pv 
