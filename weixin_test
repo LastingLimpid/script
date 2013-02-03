@@ -1,0 +1,4 @@
+1 gb2312编码问题，如果html中的那个编码值不改，beutifulsoup解析会出现乱起八糟的问题
+  网页从gb2312转码到utf-8的时候，用gb18030设置为源编码
+2 activerecord一个知识，见例子：
+  Weather.where(:region=>'北京').select(:city).all.map{|x|x.city}.join(' ').empty?
