@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/notroot/rails/new_app/sample_app'
+let g:netrw_dirhist_2='/home/notroot/rails/new_app/sample_app/app/views/layouts'
+let g:netrw_dirhist_3='/home/notroot/rails/new_app/sample_app/app/views/sessions'
+let g:netrw_dirhist_4='/home/notroot/.vim'
+let g:netrw_dirhist_5='/home/notroot/.vim/bundle/ack.vim/plugin'

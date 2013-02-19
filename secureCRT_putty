@@ -1,0 +1,4 @@
+
+set paste  //解决从右键粘贴出现缩进，或者把多行注释的问题
+
+set nopaste
