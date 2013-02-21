@@ -1,0 +1,70 @@
+Rails ENV 3 ways:
+1 rails console test 
+2 rails server --environment production
+3 bundle exec rake db:migrate RAILS_ENV=production
+
+rails测试包括(visit)get, post, put, delete
+浏览器无法直接访问 update 动作，必须先提交编辑表单，所以 Capybara 也做不到。访问编辑资料页面只能测试 edit 动作是否有权限继续操作，而不能测试 update 动作的授权情况。所以，如果要测试 update 动作是否有权限进行操作只能直接发送 PUT 请求。（你可能已经猜到了，除了 put 方法之外，Rails 中的测试还支持 get、post 和 delete 方法。）
+
+数据库操作
+因为我们要实现通过网页创建用户的功能，现在就把 6.3.5 节在控制台中创建的用户删除吧。最简单的方法是使用 db:reset 命令：
+$ bundle exec rake db:reset
+还原数据库后，在有些系统中还要重新准备测试数据库：
+$ bundle exec rake db:test:prepare
+在某些系统中还要重启 Web 服务器，还原数据库的操作才能生效。
+
+
+几种常用的数据验证：存在性、长度、格式和唯一性
+example:
+  validates :name, presence: true, length: { maximum: 50} 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  validates :password, presence: true, length: { minimum: 6 } 
+  validates :password_confirmation, presence: true
+
+
+rspec中`let` 方法 与 before方法
+
+我们可以使用 RSpec 提供的 `let` 方法便捷的在测试中定义局部变量。`let` 方法的句法看起来有点怪，不过和变量赋值语句的作用是一样的。`let` 方法的参数是一个 Symbol，后面可以跟着一个块，块中代码的返回值会赋给名为 Symbol 代表的局部变量。也就是说：
+
+let(:found_user) { User.find_by_email(@user.email) }
+定义了一个名为 `found_user` 的变量，其值等于 `find_by_email` 的返回值。在这个测试用例的任何一个 `before` 或 `it` 块中都可以使用这个变量。使用 `let` 方法定义变量的一个好处是，它可以记住（memoize）变量的值。（memoize 是个行业术语，不是“memorize”的误拼写。）对上面的代码而言，因为 `let` 的备忘功能，`found_user` 的值会被记住，因此不管调用多少次 User 模型测试，`find_by_email` 方法只会运行一次。
+
+
+页面增加调试信息，对开发环境：<%= debug(params) if Rails.env.development? %>
+
+
+ Rails 的三个环境
+
+Rails 定义了三种环境，分别是“生产环境”、“开发环境”和“测试环境”。Rails 控制台默认使用的是“开发环境”：
+
+  $ rails console
+  Loading development environment
+  >> Rails.env
+  => "development"
+  >> Rails.env.development?
+  => true
+  >> Rails.env.test?
+  => false
+  
+如前所示，Rails 对象有一个 env 属性，属性上还可以调用各环境对应的布尔值方法，例如，Rails.env.test?，在“测试环境”中的返回值是 true，而在其他两个环境中的返回值则是 false。
+
+如果需要在其他环境中使用控制台（例如，在“测试环境”中进行调试），只需把环境名称传递给 console 命令即可：
+
+  $ rails console test
+  Loading test environment
+  >> Rails.env
+  => "test"
+  >> Rails.env.test?
+  => true
+  
+Rails 本地服务器和控制台一样，默认使用“开发环境”，不过也可以在其他环境中运行：
+
+  $ rails server --environment production
+  
+如果要在“生产环境”中运行应用程序，先要提供生产环境数据库。在“生产环境”中执行 rake db:migrate 命令可以生成“生产环境”所需的数据库：
+
+$ bundle exec rake db:migrate RAILS_ENV=production
+（我发现在控制台、服务器和迁移命令中指定其他环境的方法不一样，这可能会产生混淆，所以我特意演示了三个命令的用法。）
+
+

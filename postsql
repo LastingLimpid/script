@@ -1,0 +1,3 @@
+sudo su - postgres
+createuser -s youruser
+然后用database.xml文件，bundle exec rake db:create; bundle exec rake db:migrate; 

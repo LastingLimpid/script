@@ -53,3 +53,6 @@ paste -s file
 
 #command to show process
 pv 
+
+#rename, support regular expression, for example, the following command will change file "aaa.rb", "aba.rb" to "ababa.rb", "abbba.rb"
+rename 's/a(.*)a/ab$1ba/' *.rb 
