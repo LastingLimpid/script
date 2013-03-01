@@ -1,3 +1,6 @@
+#get external ip
+curl ifconfig.me 
+
 split -d -l 1000  splitfile  output_prefix
 seq -f "%06g"  1  1  100
 use "'", not use '"', because some replace occur in '"'
