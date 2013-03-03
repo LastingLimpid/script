@@ -7,6 +7,19 @@ git config --global alias.mg merge
 
 git remote add origin git@github.com:railstutorial/first_app.git
 
+
+1.配置git
+
+$ git config --global user.name xxx
+$ git config --global user.email xxx@xxx.com
+2.配置工程
+
+#或者通过下面的方式，指定用户和邮件
+~/.git/config
+[user]
+    name = xxx
+    email = xxx@xxx.com
+
 # For illustration only; don't do this unless you mess up a branch
 $ git checkout -b topic-branch
 $ <really screw up the branch>
