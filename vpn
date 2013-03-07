@@ -1,18 +1,20 @@
 #config vpn with command line in ubuntu
 sudo pptpsetup --create your_vpn_name --server your_vpn_server --username your_name --password your_password --encrypt --start
 
-#start vpn
-sudo pon your_vpn_name 
+#look the vpn p-t-p ip
+ifconfig 
+
+#add the two line into file /etc/ppp/ip-up
+route add default gw p-t-p_ip?(10.10.0.1)
+route del default gw your_defalut_gateway(192.168.1.1)
+
+#change dns server in file /etc/network/interfaces
+dns-nameservers 8.8.8.8 192.168.1.1
 
 #stop vpn
 sudo poff your_vpn_name 
 
-#look the vpn server ip
-ifconfig 
+#start vpn
+sudo pon your_vpn_name 
 
-#add the two line into file /etc/ppp/ip-up
-route add default gw your_vpn_server(10.10.0.1)
-25 route del default gw your_defalut_gateway(192.168.1.1)
 
-#remove old dnsname and add the dnsname in file /etc/network/interfaces
-dns-nameservers 8.8.8.8
