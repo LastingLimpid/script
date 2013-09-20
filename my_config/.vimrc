@@ -32,4 +32,3 @@ nmap <s-tab> gT
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-
